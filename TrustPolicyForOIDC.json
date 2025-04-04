@@ -1,7 +1,7 @@
 # securely configure AWS IAM for GitHub Actions OIDC with:
 # Trust Policy – allowing GitHub to assume the role
 # Permission Policy – limiting Terraform permissions to just what you need
-
+# Use this to create an IAM role called github-actions-deploy, attach the trust policy, then attach the permission policy below.
 
 {
     "Version": "2012-10-17",
@@ -23,4 +23,5 @@
       }
     ]
   }
+  
   

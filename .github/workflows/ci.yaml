@@ -2,3 +2,48 @@
 # Lint Python code
 # Zip Lambda functions
 # Run terraform fmt and terraform validate
+
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Lint Lambda Code
+        run: |
+          pip install flake8
+          flake8 lambdas/
+
+      - name: Zip Lambda Functions
+        run: |
+          chmod +x scripts/zip_lambdas.sh
+          ./scripts/zip_lambdas.sh
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.6.6
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Init
+        run: terraform init
+        working-directory: infra
+
+      - name: Terraform Validate
+        run: terraform validate
+        working-directory: infra
