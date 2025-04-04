@@ -12,6 +12,8 @@ on:
 jobs:
   ci-checks:
     runs-on: ubuntu-latest
+    environment:
+      name: staging
 
     steps:
       - name: Checkout Code

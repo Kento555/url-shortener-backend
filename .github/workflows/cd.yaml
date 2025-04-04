@@ -15,8 +15,11 @@ permissions:
 
 jobs:
   deploy:
+    name: Deploy to Production
     runs-on: ubuntu-latest
-    environment: production
+    environment:
+      name: staging
+      url: https://ce09-avengers-urlshortener.sctp-sandbox.com
 
     steps:
       - name: Checkout Code
