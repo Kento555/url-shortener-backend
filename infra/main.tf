@@ -2,8 +2,7 @@ module "create_url_lambda" {
   source      = "./modules/lambdas"
   name        = "create-url-lambda"
   handler     = "main.lambda_handler"
-  source_path = "${path.module}/../../create-url.zip"
-
+  source_path = "./../../create-url.zip"
   env_vars = {
     REGION_AWS = "us-east-1"
     DB_NAME    = "url-shortener"
@@ -19,7 +18,7 @@ module "retrieve_url_lambda" {
   source      = "./modules/lambdas"
   name        = "retrieve-url-lambda"
   handler     = "main.lambda_handler"
-  source_path = "${path.module}/../../retrieve-url.zip"
+  source_path = "./../../retrieve-url.zip"
 
   env_vars = {
     REGION_AWS = "us-east-1"
