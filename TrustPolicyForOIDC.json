@@ -1,0 +1,26 @@
+# securely configure AWS IAM for GitHub Actions OIDC with:
+# Trust Policy – allowing GitHub to assume the role
+# Permission Policy – limiting Terraform permissions to just what you need
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Federated": "arn:aws:iam::YOUR_ACCOUNT_ID:oidc-provider/token.actions.githubusercontent.com"
+        },
+        "Action": "sts:AssumeRoleWithWebIdentity",
+        "Condition": {
+          "StringLike": {
+            "token.actions.githubusercontent.com:sub": "repo:Kento555/CE09-Avengers:*"
+          },
+          "StringEquals": {
+            "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
+          }
+        }
+      }
+    ]
+  }
+  

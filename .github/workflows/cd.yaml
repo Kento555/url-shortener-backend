@@ -1,0 +1,4 @@
+# CD Workflows:
+# Authenticate to AWS via OIDC
+# Run terraform plan and apply only on main
+# Enforce environment protection

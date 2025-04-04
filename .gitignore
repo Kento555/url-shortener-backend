@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.zip
+.terraform/
+.terraform.lock.hcl
+.env

@@ -1,0 +1,43 @@
+# This is a strict, least-privilege policy to deploy your infra:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Action": [
+          "cloudwatch:*",
+          "dynamodb:*",
+          "lambda:*",
+          "apigateway:*",
+          "acm:DescribeCertificate",
+          "acm:ListCertificates",
+          "acm:GetCertificate",
+          "sns:*",
+          "logs:*",
+          "wafv2:*",
+          "iam:PassRole",
+          "iam:GetRole",
+          "route53:*"
+        ],
+        "Resource": "*"
+      },
+      {
+        "Effect": "Allow",
+        "Action": [
+          "iam:CreateServiceLinkedRole"
+        ],
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "iam:AWSServiceName": [
+              "lambda.amazonaws.com",
+              "apigateway.amazonaws.com",
+              "wafv2.amazonaws.com"
+            ]
+          }
+        }
+      }
+    ]
+  }
+  
