@@ -85,8 +85,15 @@ resource "aws_api_gateway_deployment" "this" {
     aws_api_gateway_integration.get
   ]
   rest_api_id = aws_api_gateway_rest_api.this.id
-  stage_name  = "v1"
 }
+
+resource "aws_api_gateway_stage" "this" {
+  rest_api_id   = aws_api_gateway_rest_api.this.id
+  deployment_id = aws_api_gateway_deployment.this.id
+  stage_name    = "v1"
+  tracing_enabled = true
+}
+
 
 resource "aws_api_gateway_domain_name" "custom" {
   domain_name              = var.custom_domain
@@ -98,7 +105,7 @@ resource "aws_api_gateway_domain_name" "custom" {
 
 resource "aws_api_gateway_base_path_mapping" "this" {
   api_id      = aws_api_gateway_rest_api.this.id
-  stage_name  = aws_api_gateway_deployment.this.stage_name
+  stage_name  = aws_api_gateway_stage.this.stage_name
   domain_name = aws_api_gateway_domain_name.custom.domain_name
 }
 

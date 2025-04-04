@@ -49,7 +49,7 @@ module "waf" {
   source           = "./modules/waf"
   name             = "url-shortener-waf"
   env              = "dev"
-  allowed_ips      = ["1.2.3.4/32"] # Replace with your IP
+  allowed_ips      = ["115.66.249.184/32"] # Replace with your IP
   api_gw_stage_arn = "arn:aws:apigateway:us-east-1::/restapis/${module.api_gateway.api_id}/stages/v1"
 }
 
