@@ -1,4 +1,3 @@
-# This script zips both Lambda functions:
 
 #!/bin/bash
 
