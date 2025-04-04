@@ -30,19 +30,19 @@ module "retrieve_url_lambda" {
 }
 
 module "dynamodb" {
-  source      = "./modules/dynamodb"
-  table_name  = "url-shortener"
-  env         = "dev"
+  source     = "./modules/dynamodb"
+  table_name = "url-shortener"
+  env        = "dev"
 }
 
 module "api_gateway" {
-  source               = "./modules/api_gateway"
-  name                 = "url-shortener-api"
+  source                 = "./modules/api_gateway"
+  name                   = "url-shortener-api"
   lambda_post_invoke_arn = module.create_url_lambda.lambda_function_name
   lambda_get_invoke_arn  = module.retrieve_url_lambda.lambda_function_name
-  custom_domain        = "ce09-avengers-urlshortener.sctp-sandbox.com"
-  cert_arn             = var.acm_cert_arn
-  zone_id              = var.route53_zone_id
+  custom_domain          = "ce09-avengers-urlshortener.sctp-sandbox.com"
+  cert_arn               = var.acm_cert_arn
+  zone_id                = var.route53_zone_id
 }
 
 module "waf" {
@@ -54,13 +54,13 @@ module "waf" {
 }
 
 module "cloudwatch_create_url" {
-  source       = "./modules/cloudwatch"
-  name         = "create-url"
-  lambda_name  = module.create_url_lambda.lambda_function_name
+  source      = "./modules/cloudwatch"
+  name        = "create-url"
+  lambda_name = module.create_url_lambda.lambda_function_name
 }
 
 module "cloudwatch_retrieve_url" {
-  source       = "./modules/cloudwatch"
-  name         = "retrieve-url"
-  lambda_name  = module.retrieve_url_lambda.lambda_function_name
+  source      = "./modules/cloudwatch"
+  name        = "retrieve-url"
+  lambda_name = module.retrieve_url_lambda.lambda_function_name
 }

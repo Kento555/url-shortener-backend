@@ -60,15 +60,15 @@ resource "aws_cloudwatch_log_group" "waf_logs" {
 }
 
 resource "aws_wafv2_web_acl_logging_configuration" "logging" {
-  resource_arn         = aws_wafv2_web_acl.this.arn
+  resource_arn            = aws_wafv2_web_acl.this.arn
   log_destination_configs = [aws_cloudwatch_log_group.waf_logs.arn]
 
   logging_filter {
     default_behavior = "DROP"
 
     filter {
-      behavior     = "KEEP"
-      requirement  = "MEETS_ANY"
+      behavior    = "KEEP"
+      requirement = "MEETS_ANY"
 
       condition {
         action_condition {
