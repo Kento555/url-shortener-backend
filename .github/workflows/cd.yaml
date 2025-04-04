@@ -6,8 +6,11 @@
 name: Continuous Deployment
 
 on:
-  pull_request:
-    branches: [main]
+  push:
+    branches:
+      - staging  # → auto-deploy to staging
+      - main     # → protected, deploy to production with approval
+
 
 permissions:
   id-token: write
@@ -18,7 +21,7 @@ jobs:
     name: Deploy to Staging
     runs-on: ubuntu-latest
     environment:
-      name: staging
+      name: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
       url: https://ce09-avengers-urlshortener.sctp-sandbox.com
 
     steps:
