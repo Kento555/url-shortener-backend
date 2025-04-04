@@ -6,7 +6,7 @@
 name: Continuous Deployment
 
 on:
-  push:
+  pull_request:
     branches: [main]
 
 permissions:
@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   deploy:
-    name: Deploy to Production
+    name: Deploy to Staging
     runs-on: ubuntu-latest
     environment:
       name: staging
