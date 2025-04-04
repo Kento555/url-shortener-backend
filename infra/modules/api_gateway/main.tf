@@ -88,11 +88,13 @@ resource "aws_api_gateway_deployment" "this" {
 }
 
 resource "aws_api_gateway_stage" "this" {
-  rest_api_id     = aws_api_gateway_rest_api.this.id
-  deployment_id   = aws_api_gateway_deployment.this.id
-  stage_name      = "v1"
-  tracing_enabled = true
+  rest_api_id   = aws_api_gateway_rest_api.this.id
+  deployment_id = aws_api_gateway_deployment.this.id
+  stage_name    = "v1"
+
+  xray_tracing_enabled = true
 }
+
 
 
 resource "aws_api_gateway_domain_name" "custom" {
