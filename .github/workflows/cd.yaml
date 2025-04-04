@@ -28,6 +28,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Zip Lambda Functions
+        run: |
+          chmod +x scripts/zip_lambdas.sh
+          ./scripts/zip_lambdas.sh
+
       - name: Configure AWS Credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
