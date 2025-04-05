@@ -63,3 +63,17 @@ module "cloudwatch_retrieve_url" {
   name        = "retrieve-url"
   lambda_name = module.retrieve_url_lambda.lambda_function_name
 }
+
+resource "aws_acm_certificate" "this" {
+  domain_name       = "ce09-avengers-urlshortener.sctp-sandbox.com"
+  validation_method = "DNS"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = {
+    Environment = "dev"
+    Project     = "url-shortener"
+  }
+}

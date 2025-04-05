@@ -48,7 +48,7 @@ resource "aws_api_gateway_integration" "get" {
   resource_id             = aws_api_gateway_resource.shortid.id
   http_method             = aws_api_gateway_method.get.http_method
   integration_http_method = "POST"
-  type                    = "AWS"
+  type                    = "AWS_PROXY"
   uri                     = var.lambda_get_invoke_arn
   request_templates = {
     "application/json" = <<EOF
