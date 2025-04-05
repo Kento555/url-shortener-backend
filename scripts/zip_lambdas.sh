@@ -15,5 +15,6 @@ done
 
 echo "Lambdas zipped successfully."
 
-
+cd ..
+echo " Tree structure of created .zip files:"
 find . -maxdepth 1 -type f \( -name "create-url.zip" -o -name "retrieve-url.zip" \) | sed -e "s|^\./|./|" -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
