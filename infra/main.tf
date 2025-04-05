@@ -35,7 +35,7 @@ module "dynamodb" {
 }
 
 module "api_gateway" {
-  source                 = "./modules/api_gateway"
+  source                 = "./modules/api_gateway_r53"
   name                   = "url-shortener-api"
   lambda_post_invoke_arn = module.create_url_lambda.lambda_function_name
   lambda_get_invoke_arn  = module.retrieve_url_lambda.lambda_function_name
