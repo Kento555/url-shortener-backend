@@ -1,13 +1,16 @@
 # CD Workflows:
 # Authenticate to AWS via OIDC
 # Run terraform plan and apply only on main
-# Enforce environment protection
+# Enforce environment protection: Pull Request on main
 
 name: Continuous Deployment
 
 on:
-  pull_request:
-    branches: [main]
+  push:
+    branches:
+      - staging  # → auto-deploy to staging
+      - main     # → protected, deploy to production with approval
+
 
 permissions:
   id-token: write
@@ -18,12 +21,17 @@ jobs:
     name: Deploy to Staging
     runs-on: ubuntu-latest
     environment:
-      name: staging
+      name: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
       url: https://ce09-avengers-urlshortener.sctp-sandbox.com
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Zip Lambda Functions
+        run: |
+          chmod +x scripts/zip_lambdas.sh
+          ./scripts/zip_lambdas.sh
 
       - name: Configure AWS Credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4

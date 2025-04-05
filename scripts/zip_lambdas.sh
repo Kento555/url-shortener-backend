@@ -1,5 +1,3 @@
-# This script zips both Lambda functions:
-
 #!/bin/bash
 
 set -e
@@ -16,3 +14,9 @@ for dir in "${LAMBDA_DIRS[@]}"; do
 done
 
 echo "Lambdas zipped successfully."
+
+# # This command to show entire tree directory
+# find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
+
+
+find . -maxdepth 1 -type f \( -name "create-url.zip" -o -name "retrieve-url.zip" \) | sed -e "s|^\./|./|" -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
