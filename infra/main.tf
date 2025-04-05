@@ -18,7 +18,7 @@ module "retrieve_url_lambda" {
   source      = "./modules/lambdas"
   name        = "retrieve-url-lambda"
   handler     = "main.lambda_handler"
-  source_path = "./../../retrieve-url.zip"
+  source_path = "${path.root}/retrieve-url.zip"
 
   env_vars = {
     REGION_AWS = "us-east-1"

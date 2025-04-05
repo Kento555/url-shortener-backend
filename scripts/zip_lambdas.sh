@@ -14,3 +14,5 @@ for dir in "${LAMBDA_DIRS[@]}"; do
 done
 
 echo "Lambdas zipped successfully."
+
+find . | sed -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"

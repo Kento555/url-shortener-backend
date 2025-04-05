@@ -41,6 +41,7 @@ jobs:
 
       - name: Terraform Format Check
         run: terraform fmt -check -recursive
+        working-directory: infra
 
       - name: Terraform Init
         run: terraform init
