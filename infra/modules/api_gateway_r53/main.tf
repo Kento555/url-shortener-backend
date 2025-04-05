@@ -111,6 +111,8 @@ resource "aws_api_gateway_base_path_mapping" "this" {
   domain_name = aws_api_gateway_domain_name.custom.domain_name
 }
 
+
+
 resource "aws_route53_record" "api" {
   zone_id = var.zone_id
   name    = var.custom_domain
