@@ -65,10 +65,10 @@ module "cloudwatch_retrieve_url" {
 }
 
 module "route53" {
-  source                = "./modules/route53"
-  zone_id               = var.route53_zone_id
-  custom_domain         = var.custom_domain
-  regional_domain_name  = module.api_gateway.regional_domain_name
-  regional_zone_id      = module.api_gateway.regional_zone_id
+  source               = "./modules/route53"
+  zone_id              = var.route53_zone_id
+  custom_domain        = var.custom_domain
+  regional_domain_name = module.api_gateway.regional_domain_name
+  regional_zone_id     = module.api_gateway.regional_zone_id
 }
 
