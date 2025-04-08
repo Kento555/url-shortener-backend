@@ -29,4 +29,4 @@ Dependancy Setup:
 
 1. Make sure you’ve configured OIDC trust + permission policies in AWS console already before run .github/workflows/cd.yml – CD Workflow
 
-Update all
+Update all 2
