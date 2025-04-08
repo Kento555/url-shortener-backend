@@ -74,6 +74,7 @@ resource "aws_api_gateway_integration_response" "get_302" {
   resource_id = aws_api_gateway_resource.shortid.id
   http_method = aws_api_gateway_method.get.http_method
   status_code = aws_api_gateway_method_response.get_302.status_code
+  depends_on  = [aws_api_gateway_integration.get]
   response_parameters = {
     "method.response.header.Location" = "integration.response.body.location"
   }
