@@ -33,6 +33,7 @@ jobs:
         run: |
           chmod +x scripts/zip_lambdas.sh
           ./scripts/zip_lambdas.sh
+          mv create-url.zip retrieve-url.zip infra/
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
