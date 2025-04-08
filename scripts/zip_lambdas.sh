@@ -8,7 +8,7 @@ cd lambdas
 for dir in "${LAMBDA_DIRS[@]}"; do
   echo "Zipping $dir..."
   cd "$dir"
-  pip install -r requirements.txt -t . > /dev/null
+  # pip install -r requirements.txt -t . > /dev/null
   zip -r "../../$dir.zip" . > /dev/null
   cd ..
 done
