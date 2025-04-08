@@ -1,6 +1,7 @@
 variable "acm_cert_arn" {
   description = "ACM certificate ARN for custom domain"
   type        = string
+  default     = ""
 }
 
 variable "route53_zone_id" {
@@ -11,4 +12,9 @@ variable "route53_zone_id" {
 variable "allowed_ips" {
   description = "List of allowed IP addresses for WAF"
   type        = list(string)
+}
+
+variable "custom_domain" {
+  description = "Custom domain name for API Gateway"
+  type        = string
 }

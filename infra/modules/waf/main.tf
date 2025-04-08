@@ -52,6 +52,8 @@ resource "aws_wafv2_ip_set" "allow_ip" {
 resource "aws_wafv2_web_acl_association" "api" {
   resource_arn = var.api_gw_stage_arn
   web_acl_arn  = aws_wafv2_web_acl.this.arn
+
+  depends_on = [aws_wafv2_web_acl.this, var.api_gw_stage_arn]
 }
 
 resource "aws_cloudwatch_log_group" "waf_logs" {
@@ -62,6 +64,8 @@ resource "aws_cloudwatch_log_group" "waf_logs" {
 resource "aws_wafv2_web_acl_logging_configuration" "logging" {
   resource_arn            = aws_wafv2_web_acl.this.arn
   log_destination_configs = [aws_cloudwatch_log_group.waf_logs.arn]
+
+  depends_on = [aws_cloudwatch_log_group.waf_logs]
 
   logging_filter {
     default_behavior = "DROP"

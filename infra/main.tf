@@ -2,7 +2,7 @@ module "create_url_lambda" {
   source      = "./modules/lambdas"
   name        = "create-url-lambda"
   handler     = "main.lambda_handler"
-  source_path = "${path.root}/create-url.zip"
+  source_path = "${path.root}/../create-url.zip"
   env_vars = {
     REGION_AWS = "us-east-1"
     DB_NAME    = "url-shortener"
@@ -18,7 +18,7 @@ module "retrieve_url_lambda" {
   source      = "./modules/lambdas"
   name        = "retrieve-url-lambda"
   handler     = "main.lambda_handler"
-  source_path = "${path.root}/retrieve-url.zip"
+  source_path = "${path.root}/../retrieve-url.zip"
 
   env_vars = {
     REGION_AWS = "us-east-1"
@@ -35,12 +35,12 @@ module "dynamodb" {
 }
 
 module "api_gateway" {
-  source                 = "./modules/api_gateway_r53"
+  source                 = "./modules/api_gateway"
   name                   = "url-shortener-api"
   lambda_post_invoke_arn = module.create_url_lambda.lambda_function_name
   lambda_get_invoke_arn  = module.retrieve_url_lambda.lambda_function_name
   custom_domain          = "ce09-avengers-urlshortener.sctp-sandbox.com"
-  cert_arn               = var.acm_cert_arn
+  cert_arn               = module.route53.validated_cert_arn
   zone_id                = var.route53_zone_id
 }
 
@@ -63,3 +63,12 @@ module "cloudwatch_retrieve_url" {
   name        = "retrieve-url"
   lambda_name = module.retrieve_url_lambda.lambda_function_name
 }
+
+module "route53" {
+  source                = "./modules/route53"
+  zone_id               = var.route53_zone_id
+  custom_domain         = var.custom_domain
+  regional_domain_name  = module.api_gateway.regional_domain_name
+  regional_zone_id      = module.api_gateway.regional_zone_id
+}
+

@@ -25,7 +25,10 @@
       {
         "Effect": "Allow",
         "Action": [
-          "iam:CreateServiceLinkedRole"
+          "iam:CreateServiceLinkedRole",
+          "iam:CreateRole",
+          "iam:AttachRolePolicy",
+          "iam:PutRolePolicy"
         ],
         "Resource": "*",
         "Condition": {
