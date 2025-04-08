@@ -14,9 +14,8 @@ variable "lambda_get_invoke_arn" {
 }
 
 variable "custom_domain" {
-  description = "Custom domain name"
+  description = "Custom domain name for the API Gateway"
   type        = string
-  default     = "ce09-avengers-urlshortener.sctp-sandbox.com"
 }
 
 variable "cert_arn" {
@@ -25,7 +24,6 @@ variable "cert_arn" {
 }
 
 variable "zone_id" {
-  description = "Route53 hosted zone ID"
+  description = "Route53 zone ID"
   type        = string
-  default     = "Z00541411T1NGPV97B5C0"
 }

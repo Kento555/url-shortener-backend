@@ -35,12 +35,12 @@ module "dynamodb" {
 }
 
 module "api_gateway" {
-  source                 = "./modules/api_gateway_r53"
+  source                 = "./modules/api_gateway"
   name                   = "url-shortener-api"
   lambda_post_invoke_arn = module.create_url_lambda.lambda_function_name
   lambda_get_invoke_arn  = module.retrieve_url_lambda.lambda_function_name
   custom_domain          = "ce09-avengers-urlshortener.sctp-sandbox.com"
-  cert_arn               = var.acm_cert_arn
+  cert_arn               = module.route53.validated_cert_arn
   zone_id                = var.route53_zone_id
 }
 
@@ -64,16 +64,11 @@ module "cloudwatch_retrieve_url" {
   lambda_name = module.retrieve_url_lambda.lambda_function_name
 }
 
-resource "aws_acm_certificate" "this" {
-  domain_name       = "ce09-avengers-urlshortener.sctp-sandbox.com"
-  validation_method = "DNS"
-
-  lifecycle {
-    create_before_destroy = true
-  }
-
-  tags = {
-    Environment = "dev"
-    Project     = "url-shortener"
-  }
+module "route53" {
+  source                = "./modules/route53"
+  zone_id               = var.route53_zone_id
+  custom_domain         = var.custom_domain
+  regional_domain_name  = module.api_gateway.regional_domain_name
+  regional_zone_id      = module.api_gateway.regional_zone_id
 }
+
