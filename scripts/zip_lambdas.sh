@@ -15,8 +15,9 @@ done
 
 cd ..
 # Move zips into the infra/ directory so Terraform can read them
-mv create-url.zip infra/
-mv retrieve-url.zip infra/
+# Move zips into root so Terraform can read them correctly
+mv create-url.zip ../
+mv retrieve-url.zip ../
 
 echo "Lambdas zipped and moved to infra/ successfully."
 find . -maxdepth 1 -type f \( -name "create-url.zip" -o -name "retrieve-url.zip" \) | sed -e "s|^\./|./|" -e "s/[^-][^\/]*\// |/g" -e "s/|\([^ ]\)/|-\1/"
