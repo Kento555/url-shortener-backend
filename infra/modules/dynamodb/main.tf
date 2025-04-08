@@ -1,7 +1,6 @@
 resource "aws_dynamodb_table" "this" {
   name         = var.table_name
   billing_mode = "PAY_PER_REQUEST"
-
   hash_key = "short_id"
 
   attribute {
@@ -22,4 +21,10 @@ resource "aws_dynamodb_table" "this" {
     Environment = var.env
     Project     = "url-shortener"
   }
+
+  lifecycle {
+    prevent_destroy = true
+    ignore_changes  = [read_capacity, write_capacity]
+  }
+
 }

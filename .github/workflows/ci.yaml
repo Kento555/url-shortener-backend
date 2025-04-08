@@ -29,10 +29,10 @@ jobs:
           pip install flake8
           flake8 lambdas/
 
-      - name: Zip Lambda Functions
-        run: |
-          chmod +x scripts/zip_lambdas.sh
-          ./scripts/zip_lambdas.sh
+      # - name: Zip Lambda Functions
+      #   run: |
+      #     chmod +x scripts/zip_lambdas.sh
+      #     ./scripts/zip_lambdas.sh
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
@@ -41,6 +41,10 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+        working-directory: infra
+
+      - name: Show Terraform Format Diff
+        run: terraform fmt -diff -recursive
         working-directory: infra
 
       - name: Terraform Format Check
